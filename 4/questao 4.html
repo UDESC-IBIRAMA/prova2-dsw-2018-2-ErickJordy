@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+        </style>
+    </head>
+    <body>
+        <input type="text" id="nome" value="tie"/>
+        <input type="button" id="pesquisar" value="pesquisar.."/>
+        <br>
+        <table>
+            <thead>
+                <tr>
+                    <th>name</th>
+                    <th>model</th>
+                    <th>manufacturer</th>
+                    <th>cargo_capacity</th>
+                </tr>
+            </thead>
+            <tbody id='my-table-body'></tbody>
+        </table>
+        <script>
+            function teste() {
+                var name = document.getElementById('nome').value;   
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                       var lista = JSON.parse(this.responseText);
+                       if (lista.count > 0) {
+                           var table_body = "";
+                           console.log(lista);
+                           for(var i = 0; i < lista.results.length; i++) {
+                               table_body += "<tr>";
+                               table_body += "<td>"+lista.results[i].name+"</td>";
+                               table_body += "<td>"+lista.results[i].model+"</td>";
+                               table_body += "<td>"+lista.results[i].manufacturer+"</td>";
+                               table_body += "<td>"+lista.results[i].cargo_capacity+"</td>";
+                               table_body += "</tr>";
+                           }
+                           document.getElementById('my-table-body').innerHTML = table_body;
+                       }
+                       else {
+                           console.log('nothing gonna happen');
+                           document.getElementById('my-table-body').innerHTML = "sem registros";
+                       }
+                    }
+                };
+                xhttp.open("GET", "https://swapi.co/api/vehicles/?search="+name, true);
+                xhttp.setRequestHeader("Content-type", "application/json");
+                xhttp.send();
+            }
+            
+            document.getElementById("pesquisar").addEventListener("click", teste);
+        </script>    
+    </body>
+</html>

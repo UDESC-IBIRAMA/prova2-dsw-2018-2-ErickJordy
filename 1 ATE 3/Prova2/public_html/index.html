@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+ var myVar = setInterval(myTimer ,1000);
+    function myTimer() {
+        var d = new Date(), displayDate;
+       if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+          displayDate = d.toLocaleTimeString('pt-BR');
+       } else {
+          displayDate = d.toLocaleTimeString('pt-BR', {timeZone: 'America/Belem'});
+       }
+          document.getElementById("demo").innerHTML = displayDate;
+    }
+<div id="demo"></div>
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                margin:0;
+                padding:0
+            }
+            header {
+                background-color: #d0c0d1; height: 50px 
+            }
+            #menu {
+                padding:10px; 
+                margin-right: 5px; 
+                border-radius: 15   px;
+            }
+            #menu a {
+                color: #666666;    
+            }
+            #menu > div, #menu {
+                background-color: #efefef;
+            }
+            .requerido {
+                color: blue;
+                background-color: #d0c0d1;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <center>my header</center>
+        </header>
+        <div style="display: flex; justify-content: flex-start;">
+            <div id="menu">
+                <div><a href="index.html">CADASTRO</a></div>
+                <div><a href="https://www.google.com.br">QUALQUER</a></div>
+            </div>
+            <div style="padding: 10px">
+                <form>                    
+                    <span>ISBN</span>
+                    <input type="text" id="isbn" name="isbn"/>
+                    <br>
+                    <br>
+                    <span>Título</span>
+                    <input required type="text" id="titulo" name="titulo" class="requerido"/>
+                    <br>
+                    <span>Autor</span>
+                    <input required type="text" id="autor" name="autor" class="requerido"/>
+                    <br>
+                    <span>Editora</span>
+                    <input required type="text" id="editora" name="editora"  class="requerido"/>
+                    <br>
+                    <span>Ano</span>
+                    <input type="number" id="ano" name="ano"/>
+                    <br>                    
+                    <span>Quantidade</span>
+                    <input type="number" id="qtd" name="qtd"/>      
+                    <br>
+                    <input type="button" id="salvar" value="Salvar"/>
+                    <input type="button" id="btn_resultados" value="Resultados"/>
+                </form>
+                <div id="resultados" style="border: solid 1px #d0c0d1"></div>
+            </div>                 
+        </div>
+        <footer>  
+            my footer
+        </footer>
+        
+        
+        <script>
+            var array_titulos = [];
+            function salvar () {
+                array_titulos.push(document.getElementById("titulo").value);
+                console.log(document.getElementById("titulo").value);
+                //console.log(array_titulos);
+            }
+            function getResultados() {
+                let ul = document.createElement('ul');
+                for(var i =0; i < array_titulos.length; i++) {
+                    let li = document.createElement('li');
+                    li.innerHTML = array_titulos[i];
+                    ul.appendChild(li);
+                }
+                document.getElementById('resultados').innerHTML = '';
+                document.getElementById('resultados').appendChild(ul);
+            }
+            document.getElementById("salvar").addEventListener("click", salvar);
+            document.getElementById("btn_resultados").addEventListener("click", getResultados);
+        </script>    
+    </body>
+</html>
